@@ -93,7 +93,7 @@ class OrderItemsWindow:
 
     def load_order_info(self):
         """Загружает дату и клиента."""
-        order = om.get_all_orders()
+        order = om.get_order_by_id(self.order_id)
         if order:
             self.date_var.set(order[1])
             self.client_label.config(text=order[2])
@@ -124,7 +124,7 @@ class OrderItemsWindow:
         """Сохраняет изменённую дату."""
         new_date = self.date_var.get().strip()
         try:
-            datetime.strftime(new_date, "%Y-%m-%d")
+            datetime.strptime(new_date, "%Y-%m-%d")
         except ValueError:
             messagebox.showerror("Ошибка", "Формат: ГГГГ-ММ-ДД")
             return

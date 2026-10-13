@@ -21,6 +21,20 @@ def get_all_orders():
     return rows
 
 
+def get_order_by_id(order_id):
+    """
+    Возвращает заказ по id.
+    :param order_id: id заказа
+    :return: кортеж (id, дата, клиент) или None
+    """
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, дата, клиент FROM Заказ WHERE id = ?", (order_id,))
+    row = cur.fetchone()
+    conn.close()
+    return row
+
+
 def get_order_items(order_id):
     """
     Возвращает состав заказа через JOIN.
